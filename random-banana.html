@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Banaan</title>
+</head>
+
+<body>
+
+    <h1>Random Banana Image</h1>
+    <img id="bananaImage" src="" alt="Banana Image">
+
+    <!-- <script>
+        // Function to fetch random banana image
+        function fetchRandomBananaImage() {
+            // API URL
+            const apiUrl = 'https://api.api-ninjas.com/v1/randomimage?category=banana';
+
+            // Additional headers
+            const headers = {
+                'X-Api-Key': '8QaFidqMpuG21tfYGVFs8w==nPI9FWAyM5QjrVnT' // Replace 'Your-API-Key' with your actual API key
+            };
+
+            // Fetch image from API
+            fetch(apiUrl, {
+                headers: headers
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const objectURL = URL.createObjectURL(blob);
+                    document.getElementById('bananaImage').src = objectURL;
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        // Call the function to fetch and display the random banana image
+        fetchRandomBananaImage();
+    </script> -->
+    <script>
+        fetch('https://www.fruityvice.com/api/fruit/banana/image')
+            .then(response => response.json())
+            .then(data => console.log(data));
+    </script>
+</body>
+
+</html>

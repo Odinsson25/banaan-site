@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banaan (onno)</title>
+    <link rel="icon" href="img/banaan.png" type="image/png">
+    <link rel="stylesheet" href="index.css">
+
+
+</head>
+
+<body>
+
+
+    <header class="blauw">
+
+        <a href="index.html" id="homeBtn" style="text-decoration: none;">
+
+            <img src="img/banaan.png" alt="banaan" title="banaan (home)">
+
+        </a>
+
+
+        <div id="redirections">
+            <a href=" index.html">Home</a>
+            <a href=" img/banaan.png">Banaan</a>
+            <!-- <a target="_blank" href="#" onclick="viewPageSource()">ee</a> -->
+        </div>
+
+    </header>
+
+    <div id="page">
+
+        <br><br><br><br>
+        <div id="info1">
+            <h1>Alles over Bananen</h1>
+            <p>Bananen zijn een van de meest populaire, hippe en voedzame vruchten ter wereld. Hier zijn enkele
+                interessante
+                feiten over
+                bananen:</p>
+
+            <h2>Geschiedenis van Bananen</h2>
+            <p>Bananen worden al duizenden jaren door mensen gegeten. Ze zijn oorspronkelijk afkomstig uit Zuidoost-Azië
+                en werden
+                verspreid over de hele wereld door handelaren en ontdekkingsreizigers.</p>
+
+            <h2>Voedingswaarde</h2>
+            <p>Bananen zijn een uitstekende bron van verschillende voedingsstoffen, waaronder:</p>
+            <ul>
+                <li>Vitamine C</li>
+                <li>Potassium</li>
+                <li>Vezels</li>
+                <li>Vitamine B6</li>
+                <li>Foliumzuur</li>
+            </ul>
+
+            <h2>Gebruik en Consumptie</h2>
+            <p>Bananen kunnen rauw worden gegeten, toegevoegd aan smoothies, gebruikt in bakrecepten of gedroogd worden
+                voor een
+                gezonde snack. Ze zijn veelzijdig en geliefd bij mensen van alle leeftijden.</p>
+            <h2>Gerechten en delicatessen</h2>
+            <p>Bananen kunnen op vele manieren worden bereid. Zo is een bekend gerecht bananenbrood en bananensmoothies.
+                <br>
+                Ook is er onlangs een nieuw delicatesse ontdekt: <b>banaan met honing</b>.
+            <ul>
+                <li>U grijpt de banaan bij de
+                    onderkant.</li>
+                <li>Houd de banaan goed vast.</li>
+                <li>Pel de schil met aandacht van de banaan af.</li>
+                <li>U bijt het kapje eraf,</li>
+                <li>Hierna dispenseert u uw honing op het platte topje van de banaan. </li>
+                <li>Hierna plaatst u de mond over de banaan, waarna u een flinke hap neemt.</li>
+            </ul>
+            </p>
+
+            <h2>Trivia</h2>
+            <p>Wist je dat...</p>
+            <ul>
+                <li>Bananen groeien aan grote planten die eigenlijk kruiden zijn, geen bomen?</li>
+                <li>De binnenkant van een bananenschil gebruikt kan worden om krassen op leer te verwijderen?</li>
+                <li>Bananen in sommige culturen een symbool van geluk zijn?</li>
+            </ul>
+
+            <p>Al met al zijn bananen niet alleen heerlijk, maar ook buitengewoon voedzaam en veelzijdig!</p>
+        </div>
+        <div id="recept" class="clearfix">
+            <h1 style="color:black;">Recept voor jou: <br><br></h1>
+            <img src="img/banaan.png" alt="" id="RecipeThumbnail">
+
+            <a id="recipeNameLink" href="" target="_blank" style="color:black;">
+                <h1 id="recipeName">Titel, type</h1>
+            </a>
+            <div id="ingredients">
+                <h2>Ingredienten</h2>
+                <p id="ingredientsList"></p>
+                <p id="recipeLinkView"> Bekijk <b><a style="color: blue;" id="recipeHyperLinkA" href=""
+                            target="_blank">hier</a></b> het
+                    hele recept, plus de
+                    instructies! Of bekijk <b><a target="_blank" style="color: blue;" id="recipeHyperLinkB"
+                            href="">hier</a></b> de
+                    ingedienten en de voedingswaardes!</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        async function fetchData(apiQuery) {
+            try {
+                // Make a fetch request and wait for the response
+                const response = await
+                    fetch(`https://api.edamam.com/api/recipes/v2?type=public` +
+                        `&q=${apiQuery}` +
+                        `&app_id=ad3c58c0&app_key=b5dd4527cfa5b9e11307427a939a210c`);
+
+                // Check if the response is successful
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                console.log(data);
+                let recipeNr = Math.round(Math.random() * data.hits.length)
+                console.log(recipeNr)
+                const recipe = data.hits[recipeNr].recipe;
+                // Parse the JSON data from the response
+                let ingredients = "* " + recipe.ingredientLines.join("<br> * ").toString()
+                console.log(ingredients)
+                console.log(recipe.images.REGULAR.url)
+                document.getElementById("recipeName").innerHTML = recipe.label + ". Type: " + recipe.dishType.join(" & ").toString();
+                document.getElementById("ingredientsList").innerHTML = ingredients;
+                document.getElementById("recipeNameLink").href = recipe.shareAs;
+                document.getElementById("recipeHyperLinkA").href = recipe.url;
+                document.getElementById("recipeHyperLinkB").href = recipe.shareAs;
+                document.getElementById("RecipeThumbnail").src = recipe.images.REGULAR.url;
+
+
+                // Do something with the data
+            } catch (error) {
+                // Handle any errors that occur during the fetch
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+
+        // Call the async function to start fetching data
+        fetchData("banana");
+
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>
